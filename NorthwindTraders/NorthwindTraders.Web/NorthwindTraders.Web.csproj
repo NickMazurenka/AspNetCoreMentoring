@@ -17,6 +17,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
     <ProjectReference Include="..\NorthwindTraders.Persistence\NorthwindTraders.Persistence.csproj" />
   </ItemGroup>
 

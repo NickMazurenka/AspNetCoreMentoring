@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NorthwindTraders.Domain.Entities;
 using NorthwindTraders.Persistence;
 
@@ -11,17 +12,22 @@ namespace NorthwindTraders.Web.Controllers
     public class ProductsController : Controller
     {
         private readonly NorthwindContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ProductsController(NorthwindContext context)
+        public ProductsController(NorthwindContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            var maximumProducts = _configuration.GetValue<int>("ProductsPageMaximumProductsCount");
             var northwindContext = _context.Products.Include(p => p.Category).Include(p => p.Supplier);
-            return View(await northwindContext.ToListAsync());
+            var productsRestrained = maximumProducts > 0 ? northwindContext.Take(maximumProducts) : northwindContext;
+
+            return View(await productsRestrained.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -36,6 +42,7 @@ namespace NorthwindTraders.Web.Controllers
                 .Include(p => p.Category)
                 .Include(p => p.Supplier)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
             if (products == null)
             {
                 return NotFound();
