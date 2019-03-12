@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NorthwindTraders.Web.Models;
 
-namespace NorthwindTraders.Controllers
+namespace NorthwindTraders.Web.Controllers
 {
     public class HomeController : Controller
     {

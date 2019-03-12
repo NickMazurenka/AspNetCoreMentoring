@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Web", "NorthwindTraders.Web\NorthwindTraders.Web.csproj", "{34E4C9C5-CCA4-4232-9C32-7DFEBA5271FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Repository", "NorthwindTraders.Repository\NorthwindTraders.Repository.csproj", "{F9F8B04B-BBF8-4431-8B1D-5AD629B14403}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Domain", "NorthwindTraders.Domain\NorthwindTraders.Domain.csproj", "{1F165ED0-ADFC-477F-8B16-DB112720F85F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Persistence", "NorthwindTraders.Persistence\NorthwindTraders.Persistence.csproj", "{597B13E0-CA8F-4707-903E-E808B173DD47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{34E4C9C5-CCA4-4232-9C32-7DFEBA5271FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34E4C9C5-CCA4-4232-9C32-7DFEBA5271FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34E4C9C5-CCA4-4232-9C32-7DFEBA5271FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9F8B04B-BBF8-4431-8B1D-5AD629B14403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9F8B04B-BBF8-4431-8B1D-5AD629B14403}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9F8B04B-BBF8-4431-8B1D-5AD629B14403}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9F8B04B-BBF8-4431-8B1D-5AD629B14403}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{597B13E0-CA8F-4707-903E-E808B173DD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{597B13E0-CA8F-4707-903E-E808B173DD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{597B13E0-CA8F-4707-903E-E808B173DD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{597B13E0-CA8F-4707-903E-E808B173DD47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NorthwindTraders.Repository.Models
+namespace NorthwindTraders.Domain.Entities
 {
     public class Shippers
     {

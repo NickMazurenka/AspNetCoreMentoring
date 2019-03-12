@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NorthwindTraders.Repository;
-using NorthwindTraders.Repository.Models;
+using NorthwindTraders.Domain.Entities;
+using NorthwindTraders.Persistence;
 
 namespace NorthwindTraders.Web.Controllers
 {

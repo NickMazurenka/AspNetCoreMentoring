@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NorthwindTraders.Repository;
+using NorthwindTraders.Persistence;
 
-namespace NorthwindTraders
+namespace NorthwindTraders.Web
 {
     public class Startup
     {

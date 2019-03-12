@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NorthwindTraders.Repository.Models;
+using NorthwindTraders.Domain.Entities;
 
 namespace NorthwindTraders.Repository
 {
@@ -27,15 +27,6 @@ namespace NorthwindTraders.Repository
         public virtual DbSet<Shippers> Shippers { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<Territories> Territories { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=EPBYMINW5535;Initial Catalog=Northwind;Integrated Security=True");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

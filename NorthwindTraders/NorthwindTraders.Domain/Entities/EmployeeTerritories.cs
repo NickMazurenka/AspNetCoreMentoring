@@ -1,4 +1,4 @@
-﻿namespace NorthwindTraders.Repository.Models
+﻿namespace NorthwindTraders.Domain.Entities
 {
     public class EmployeeTerritories
     {

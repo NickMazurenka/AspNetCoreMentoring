@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace NorthwindTraders
+namespace NorthwindTraders.Web
 {
     public class Program
     {
