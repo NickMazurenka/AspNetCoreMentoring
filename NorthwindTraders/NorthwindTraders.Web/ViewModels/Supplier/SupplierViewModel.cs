@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
+using NorthwindTraders.Web.ViewModels.Product;
 
-namespace NorthwindTraders.Domain.Entities
+namespace NorthwindTraders.Web.ViewModels.Supplier
 {
-    public class Customers
+    public class SupplierViewModel
     {
-        public Customers()
-        {
-            CustomerCustomerDemo = new HashSet<CustomerCustomerDemo>();
-            Orders = new HashSet<Orders>();
-        }
-
-        public string CustomerId { get; set; }
+        public int SupplierId { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }
         public string ContactTitle { get; set; }
@@ -21,8 +16,8 @@ namespace NorthwindTraders.Domain.Entities
         public string Country { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
+        public string HomePage { get; set; }
 
-        public virtual ICollection<CustomerCustomerDemo> CustomerCustomerDemo { get; set; }
-        public virtual ICollection<Orders> Orders { get; set; }
+        public virtual ICollection<ProductViewModel> Products { get; set; }
     }
 }

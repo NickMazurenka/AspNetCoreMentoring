@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using NorthwindTraders.Persistence;
 using FluentValidation.AspNetCore;
 using NorthwindTraders.Application.Validators;
 using NorthwindTraders.Domain.Entities;
+using NorthwindTraders.Web.MappingProfiles;
 
 namespace NorthwindTraders.Web
 {
@@ -32,10 +34,12 @@ namespace NorthwindTraders.Web
 
             services.AddSingleton<IConfiguration>(Configuration);
 
-            services.AddTransient<IValidator<Products>, ProductValidator>();
+            services.AddTransient<IValidator<Product>, ProductValidator>();
 
             services.AddDbContext<NorthwindContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NorthwindDatabase")));
+
+            services.AddAutoMapper(x => x.AddProfile(new CategoryProfile()));
 
             services.AddMvc()
                 .AddFluentValidation()

@@ -2,11 +2,11 @@
 
 namespace NorthwindTraders.Domain.Entities
 {
-    public class Suppliers
+    public class Supplier
     {
-        public Suppliers()
+        public Supplier()
         {
-            Products = new HashSet<Products>();
+            Products = new HashSet<Product>();
         }
 
         public int SupplierId { get; set; }
@@ -22,6 +22,6 @@ namespace NorthwindTraders.Domain.Entities
         public string Fax { get; set; }
         public string HomePage { get; set; }
 
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

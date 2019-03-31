@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using NorthwindTraders.Web.ViewModels.Category;
+using NorthwindTraders.Web.ViewModels.Supplier;
 
-namespace NorthwindTraders.Domain.Entities
+namespace NorthwindTraders.Web.ViewModels.Product
 {
-    public class Products
+    public class ProductViewModel
     {
-        public Products()
-        {
-            OrderDetails = new HashSet<OrderDetails>();
-        }
-
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int? SupplierId { get; set; }
@@ -20,8 +16,7 @@ namespace NorthwindTraders.Domain.Entities
         public short? ReorderLevel { get; set; }
         public bool Discontinued { get; set; }
 
-        public virtual Categories Category { get; set; }
-        public virtual Suppliers Supplier { get; set; }
-        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
+        public CategoryViewModel Category { get; set; }
+        public SupplierViewModel Supplier { get; set; }
     }
 }

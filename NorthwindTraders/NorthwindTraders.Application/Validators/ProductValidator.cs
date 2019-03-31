@@ -3,7 +3,7 @@ using NorthwindTraders.Domain.Entities;
 
 namespace NorthwindTraders.Application.Validators
 {
-    public class ProductValidator : AbstractValidator<Products>
+    public class ProductValidator : AbstractValidator<Product>
     {
         public ProductValidator()
         {

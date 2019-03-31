@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using NorthwindTraders.Web.Models;
+using NorthwindTraders.Web.ViewModels;
 
 namespace NorthwindTraders.Web.Controllers
 {
