@@ -1,29 +1,28 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NorthwindTraders.Domain.Entities;
-using NorthwindTraders.Persistence;
+using NorthwindTraders.Application.Categories;
+using NorthwindTraders.Domain.Categories;
 using NorthwindTraders.Web.ViewModels.Category;
 
 namespace NorthwindTraders.Web.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly NorthwindContext _context;
+        private readonly ICategoriesService _categoriesService;
         private readonly IMapper _mapper;
 
-        public CategoriesController(NorthwindContext context, IMapper mapper)
+        public CategoriesController(ICategoriesService categoriesService, IMapper mapper)
         {
-            _context = context;
+            _categoriesService = categoriesService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _context.Categories.ToListAsync();
+            var data = await _categoriesService.GetCategoriesAsync();
             return View(_mapper.Map<IEnumerable<CategoryViewModel>>(data));
         }
 
@@ -34,8 +33,8 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var category = await _categoriesService.GetCategoryAsync(id.Value);
+
             if (category == null)
             {
                 return NotFound();
@@ -44,7 +43,6 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        // GET: Category/Create
         public IActionResult Create()
         {
             return View();
@@ -59,8 +57,7 @@ namespace NorthwindTraders.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                await _categoriesService.CreateCategoryAsync(_mapper.Map<CategoryCreateModel, Category>(category));
 
                 return RedirectToAction(nameof(Index));
             }
@@ -76,14 +73,14 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var categories = await _context.Categories.FindAsync(id);
+            var category = await _categoriesService.GetCategoryAsync(id.Value);
 
-            if (categories == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<CategoryViewModel>(categories));
+            return View(_mapper.Map<CategoryViewModel>(category));
         }
 
         // POST: Category/Edit/5
@@ -104,12 +101,12 @@ namespace NorthwindTraders.Web.Controllers
             {
                 try
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
+                    await _categoriesService.UpdateCategoryAsync(category);
                 }
+                // TODO: Move exception to Repository
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.CategoryId))
+                    if (await _categoriesService.GetCategoryAsync(category.CategoryId) == null)
                     {
                         return NotFound();
                     }
@@ -131,31 +128,23 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var categories = await _context.Categories
-                .FirstOrDefaultAsync(m => m.CategoryId == id);
-            if (categories == null)
+            var category = await _categoriesService.GetCategoryAsync(id.Value);
+
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(_mapper.Map<CategoryViewModel>(categories));
+            return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        // POST: Category/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categories = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(categories);
-            await _context.SaveChangesAsync();
+            await _categoriesService.DeleteCategoryAsync(id);
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

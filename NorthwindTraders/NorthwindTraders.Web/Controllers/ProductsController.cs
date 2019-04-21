@@ -6,21 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using NorthwindTraders.Domain.Entities;
-using NorthwindTraders.Persistence;
+using NorthwindTraders.Application.Categories;
+using NorthwindTraders.Application.Products;
+using NorthwindTraders.Application.Suppliers;
+using NorthwindTraders.Domain.Products;
 using NorthwindTraders.Web.ViewModels.Product;
 
 namespace NorthwindTraders.Web.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly NorthwindContext _context;
+        private readonly ICategoriesService _categoriesService;
+        private readonly IProductsService _productsService;
+        private readonly ISuppliersService _suppliersService;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public ProductsController(NorthwindContext context, IConfiguration configuration, IMapper mapper)
+        public ProductsController(
+            ICategoriesService categoriesService,
+            IProductsService productsService,
+            ISuppliersService suppliersService,
+            IConfiguration configuration,
+            IMapper mapper)
         {
-            _context = context;
+            _categoriesService = categoriesService;
+            _productsService = productsService;
+            _suppliersService = suppliersService;
             _configuration = configuration;
             _mapper = mapper;
         }
@@ -29,13 +40,12 @@ namespace NorthwindTraders.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var maximumProducts = _configuration.GetValue<int>("ProductsPageMaximumProductsCount");
-            var northwindContext = _context.Products.Include(p => p.Category).Include(p => p.Supplier);
-            var productsRestrained = maximumProducts > 0 ? northwindContext.Take(maximumProducts) : northwindContext;
+            var products = await _productsService.GetProductsAsync();
+            var productsRestrained = maximumProducts > 0 ? products.Take(maximumProducts) : products;
 
-            return View(_mapper.Map<IEnumerable<ProductViewModel>>(await productsRestrained.ToListAsync()));
+            return View(_mapper.Map<IEnumerable<ProductViewModel>>(productsRestrained));
         }
 
-        // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,10 +53,7 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _productsService.GetProductAsync(id.Value);
 
             if (product == null)
             {
@@ -56,11 +63,12 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
-        // GET: Product/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName");
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName");
+            ViewData["CategoryId"] =
+                new SelectList(await _categoriesService.GetCategoriesAsync(), "CategoryId", "CategoryName");
+            ViewData["SupplierId"] =
+                new SelectList(await _suppliersService.GetSuppliersAsync(), "SupplierId", "CompanyName");
             return View();
         }
 
@@ -75,19 +83,19 @@ namespace NorthwindTraders.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
+                await _productsService.CreateProductAsync(product);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(
+                await _categoriesService.GetCategoriesAsync(), "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(
+                await _suppliersService.GetSuppliersAsync(), "SupplierId", "CompanyName", product.SupplierId);
 
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
-        // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,15 +103,17 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productsService.GetProductAsync(id.Value);
 
             if (product == null)
             {
                 return NotFound();
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(
+                await _categoriesService.GetCategoriesAsync(), "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(
+                await _suppliersService.GetSuppliersAsync(), "SupplierId", "CompanyName", product.SupplierId);
 
             return View(_mapper.Map<ProductViewModel>(product));
         }
@@ -126,12 +136,12 @@ namespace NorthwindTraders.Web.Controllers
             {
                 try
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
+                    await _productsService.UpdateProductAsync(product);
                 }
+                // TODO: Move exception to Repository
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ProductId))
+                    if (_productsService.GetProductAsync(product.ProductId) == null)
                     {
                         return NotFound();
                     }
@@ -144,8 +154,10 @@ namespace NorthwindTraders.Web.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryName", product.CategoryId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "SupplierId", "CompanyName", product.SupplierId);
+            ViewData["CategoryId"] = new SelectList(
+                await _categoriesService.GetCategoriesAsync(), "CategoryId", "CategoryName", product.CategoryId);
+            ViewData["SupplierId"] = new SelectList(
+                await _suppliersService.GetSuppliersAsync(), "SupplierId", "CompanyName", product.SupplierId);
 
             return View(_mapper.Map<ProductViewModel>(product));
         }
@@ -158,10 +170,7 @@ namespace NorthwindTraders.Web.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var products = await _productsService.GetProductAsync(id.Value);
 
             if (products == null)
             {
@@ -171,21 +180,13 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<ProductViewModel>(products));
         }
 
-        // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Products.FindAsync(id);
-            _context.Products.Remove(products);
-            await _context.SaveChangesAsync();
+            await _productsService.DeleteProductAsync(id);
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.ProductId == id);
         }
     }
 }

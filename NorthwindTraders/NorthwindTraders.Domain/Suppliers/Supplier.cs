@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
+using NorthwindTraders.Domain.Products;
 
-namespace NorthwindTraders.Domain.Entities
+namespace NorthwindTraders.Domain.Suppliers
 {
     public class Supplier
     {
-        public Supplier()
-        {
-            Products = new HashSet<Product>();
-        }
-
         public int SupplierId { get; set; }
         public string CompanyName { get; set; }
         public string ContactName { get; set; }

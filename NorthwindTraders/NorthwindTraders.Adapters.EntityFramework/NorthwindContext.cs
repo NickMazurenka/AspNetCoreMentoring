@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NorthwindTraders.Domain.Entities;
+using NorthwindTraders.Domain.Categories;
+using NorthwindTraders.Domain.Products;
+using NorthwindTraders.Domain.Suppliers;
 
-namespace NorthwindTraders.Persistence
+namespace NorthwindTraders.Adapters.EntityFramework
 {
-    public class NorthwindContext : DbContext
+    internal class NorthwindContext : DbContext
     {
         public NorthwindContext()
         {

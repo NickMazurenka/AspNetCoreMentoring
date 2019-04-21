@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using NorthwindTraders.Domain.Categories;
+using NorthwindTraders.Domain.Suppliers;
 
-namespace NorthwindTraders.Domain.Entities
+namespace NorthwindTraders.Domain.Products
 {
     public class Product
     {

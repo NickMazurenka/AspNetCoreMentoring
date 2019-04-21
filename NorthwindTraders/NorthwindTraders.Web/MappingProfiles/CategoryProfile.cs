@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using NorthwindTraders.Domain.Entities;
-using NorthwindTraders.Web.ViewModels;
+using NorthwindTraders.Domain.Categories;
 using NorthwindTraders.Web.ViewModels.Category;
 
 namespace NorthwindTraders.Web.MappingProfiles

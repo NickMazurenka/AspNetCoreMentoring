@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Web", "Nor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Domain", "NorthwindTraders.Domain\NorthwindTraders.Domain.csproj", "{1F165ED0-ADFC-477F-8B16-DB112720F85F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Persistence", "NorthwindTraders.Persistence\NorthwindTraders.Persistence.csproj", "{597B13E0-CA8F-4707-903E-E808B173DD47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Application", "NorthwindTraders.Application\NorthwindTraders.Application.csproj", "{A19675B1-7A36-4A4C-A91C-20D12257C881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Application", "NorthwindTraders.Application\NorthwindTraders.Application.csproj", "{A19675B1-7A36-4A4C-A91C-20D12257C881}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Adapters.EntityFramework", "NorthwindTraders.Adapters.EntityFramework\NorthwindTraders.Adapters.EntityFramework.csproj", "{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F165ED0-ADFC-477F-8B16-DB112720F85F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{597B13E0-CA8F-4707-903E-E808B173DD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{597B13E0-CA8F-4707-903E-E808B173DD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{597B13E0-CA8F-4707-903E-E808B173DD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{597B13E0-CA8F-4707-903E-E808B173DD47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A19675B1-7A36-4A4C-A91C-20D12257C881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A19675B1-7A36-4A4C-A91C-20D12257C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A19675B1-7A36-4A4C-A91C-20D12257C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A19675B1-7A36-4A4C-A91C-20D12257C881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

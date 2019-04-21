@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using NorthwindTraders.Domain.Entities;
+using NorthwindTraders.Domain.Products;
 
-namespace NorthwindTraders.Application.Validators
+namespace NorthwindTraders.Application.Products
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class ProductsValidator : AbstractValidator<Product>
     {
-        public ProductValidator()
+        public ProductsValidator()
         {
             RuleFor(e => e.ProductId).NotNull();
             RuleFor(e => e.ProductName).NotEmpty().MaximumLength(40);
