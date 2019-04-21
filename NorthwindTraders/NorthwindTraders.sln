@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NorthwindTraders.Applicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Adapters.EntityFramework", "NorthwindTraders.Adapters.EntityFramework\NorthwindTraders.Adapters.EntityFramework.csproj", "{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{08D0C2AA-8173-4BCA-9826-0236EA71A41C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindTraders.Web.Tests", "NorthwindTraders.Web.Tests\NorthwindTraders.Web.Tests.csproj", "{896CFECA-4285-4F0F-A099-46E4808673A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E11CDC3-EBC9-4F05-9985-E7345A23F3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896CFECA-4285-4F0F-A099-46E4808673A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896CFECA-4285-4F0F-A099-46E4808673A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896CFECA-4285-4F0F-A099-46E4808673A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896CFECA-4285-4F0F-A099-46E4808673A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{896CFECA-4285-4F0F-A099-46E4808673A1} = {08D0C2AA-8173-4BCA-9826-0236EA71A41C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE5F0F2E-D884-4AC5-92A0-6E1CA62E49EF}

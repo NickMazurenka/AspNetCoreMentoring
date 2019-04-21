@@ -40,7 +40,7 @@ namespace NorthwindTraders.Web
 
             services.AddApplicationCore();
 
-            services.AddAutoMapper(x => x.AddProfile(new CategoryProfile()));
+            services.AddAutoMapper();
 
             services.AddMvc()
                 .AddFluentValidation()
