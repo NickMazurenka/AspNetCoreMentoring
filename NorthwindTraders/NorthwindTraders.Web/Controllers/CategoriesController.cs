@@ -48,7 +48,6 @@ namespace NorthwindTraders.Web.Controllers
             return View();
         }
 
-        // POST: Category/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +64,6 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        // GET: Category/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -83,9 +81,6 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        // POST: Category/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CategoryEditModel categoryEditModel)
@@ -115,12 +110,12 @@ namespace NorthwindTraders.Web.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
-        // GET: Category/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

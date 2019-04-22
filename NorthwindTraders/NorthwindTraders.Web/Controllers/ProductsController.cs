@@ -36,7 +36,6 @@ namespace NorthwindTraders.Web.Controllers
             _mapper = mapper;
         }
 
-        // GET: Product
         public async Task<IActionResult> Index()
         {
             var maximumProducts = _configuration.GetValue<int>("ProductsPageMaximumProductsCount");
@@ -72,9 +71,6 @@ namespace NorthwindTraders.Web.Controllers
             return View();
         }
 
-        // POST: Product/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCreateModel productViewModel)
@@ -118,9 +114,6 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
-        // POST: Product/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProductEditModel productEditModel)
@@ -162,7 +155,6 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<ProductViewModel>(product));
         }
 
-        // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
