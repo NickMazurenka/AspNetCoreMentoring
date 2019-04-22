@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -43,13 +45,25 @@ namespace NorthwindTraders.Web.Controllers
             return View(_mapper.Map<CategoryViewModel>(category));
         }
 
+        [Route("[controller]/[action]/{id}")]
+        [Route("images/{id}")]
+        public async Task<IActionResult> GetImageForCategory(int id)
+        {
+            var category = await _categoriesService.GetCategoryAsync(id);
+
+            if (category.Picture == null)
+            {
+                return NotFound();
+            }
+
+            return File(category.Picture.Skip(78).ToArray(), "image/bmp");
+        }
+
         public IActionResult Create()
         {
             return View();
         }
 
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CategoryCreateModel category)
