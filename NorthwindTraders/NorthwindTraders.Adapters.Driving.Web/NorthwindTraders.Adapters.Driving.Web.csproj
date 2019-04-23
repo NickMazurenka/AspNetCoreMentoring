@@ -17,7 +17,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\NorthwindTraders.Adapters.EntityFramework\NorthwindTraders.Adapters.EntityFramework.csproj" />
+    <ProjectReference Include="..\NorthwindTraders.Adapters.Driven.EntityFramework\NorthwindTraders.Adapters.Driven.EntityFramework.csproj" />
     <ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
   </ItemGroup>
 
