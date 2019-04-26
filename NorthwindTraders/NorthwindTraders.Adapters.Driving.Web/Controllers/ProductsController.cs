@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Product;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Application.Products;
 using NorthwindTraders.Application.Suppliers;
 using NorthwindTraders.Domain.Products;
-using NorthwindTraders.Web.ViewModels.Product;
 
-namespace NorthwindTraders.Web.Controllers
+namespace NorthwindTraders.Adapters.Driving.Web.Controllers
 {
     public class ProductsController : Controller
     {

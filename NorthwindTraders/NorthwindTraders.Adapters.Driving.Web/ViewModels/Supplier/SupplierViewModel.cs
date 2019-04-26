@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NorthwindTraders.Web.ViewModels.Product;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Product;
 
-namespace NorthwindTraders.Web.ViewModels.Supplier
+namespace NorthwindTraders.Adapters.Driving.Web.ViewModels.Supplier
 {
     public class SupplierViewModel
     {

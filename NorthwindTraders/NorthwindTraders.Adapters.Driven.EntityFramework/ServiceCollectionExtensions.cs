@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using NorthwindTraders.Adapters.EntityFramework.Repositories;
+using NorthwindTraders.Adapters.Driven.EntityFramework.Repositories;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Application.Products;
 using NorthwindTraders.Application.Suppliers;
 
-namespace NorthwindTraders.Adapters.EntityFramework
+namespace NorthwindTraders.Adapters.Driven.EntityFramework
 {
     public static class ServiceCollectionExtensions
     {

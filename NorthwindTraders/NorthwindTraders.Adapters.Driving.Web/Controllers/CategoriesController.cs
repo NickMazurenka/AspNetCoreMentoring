@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Category;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Domain.Categories;
-using NorthwindTraders.Web.ViewModels.Category;
 
-namespace NorthwindTraders.Web.Controllers
+namespace NorthwindTraders.Adapters.Driving.Web.Controllers
 {
     public class CategoriesController : Controller
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NorthwindTraders.Application.Products;
 using NorthwindTraders.Domain.Products;
 
-namespace NorthwindTraders.Adapters.EntityFramework.Repositories
+namespace NorthwindTraders.Adapters.Driven.EntityFramework.Repositories
 {
     internal class ProductsRepository : IProductsRepository
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Domain.Categories;
 
-namespace NorthwindTraders.Adapters.EntityFramework.Repositories
+namespace NorthwindTraders.Adapters.Driven.EntityFramework.Repositories
 {
     internal class CategoriesRepository : ICategoriesRepository
     {

@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
-using NorthwindTraders.Adapters.EntityFramework;
+using NorthwindTraders.Adapters.Driven.EntityFramework;
+using NorthwindTraders.Adapters.Driving.Web.Middleware;
 using NorthwindTraders.Application;
 using NorthwindTraders.Application.Products;
 using NorthwindTraders.Domain.Products;
-using NorthwindTraders.Web.MappingProfiles;
 
-namespace NorthwindTraders.Web
+namespace NorthwindTraders.Adapters.Driving.Web
 {
     public class Startup
     {
@@ -62,6 +62,7 @@ namespace NorthwindTraders.Web
             }
 
             app.UseHttpsRedirection();
+            app.UseCustomImageCaching();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

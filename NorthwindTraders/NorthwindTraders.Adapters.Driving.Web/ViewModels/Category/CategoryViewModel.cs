@@ -1,4 +1,4 @@
-﻿namespace NorthwindTraders.Web.ViewModels.Category
+﻿namespace NorthwindTraders.Adapters.Driving.Web.ViewModels.Category
 {
     public class CategoryViewModel
     {

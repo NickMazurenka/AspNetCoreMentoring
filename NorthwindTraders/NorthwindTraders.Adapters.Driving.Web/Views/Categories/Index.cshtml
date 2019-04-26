@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NorthwindTraders.Web.ViewModels.Category.CategoryViewModel>
+﻿@model IEnumerable<NorthwindTraders.Adapters.Driving.Web.ViewModels.Category.CategoryViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,6 +16,9 @@
                 @Html.DisplayNameFor(model => model.CategoryName)
             </th>
             <th>
+                Image
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th></th>
@@ -26,6 +29,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <img src="images/@item.CategoryId" alt="@item.CategoryName"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

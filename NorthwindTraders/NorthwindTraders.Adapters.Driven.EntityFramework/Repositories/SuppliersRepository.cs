@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NorthwindTraders.Application.Suppliers;
 using NorthwindTraders.Domain.Suppliers;
 
-namespace NorthwindTraders.Adapters.EntityFramework.Repositories
+namespace NorthwindTraders.Adapters.Driven.EntityFramework.Repositories
 {
     internal class SuppliersRepository : ISuppliersRepository
     {

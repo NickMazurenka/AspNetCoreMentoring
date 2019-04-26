@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Category;
 using NorthwindTraders.Domain.Categories;
-using NorthwindTraders.Web.ViewModels.Category;
 
-namespace NorthwindTraders.Web.MappingProfiles
+namespace NorthwindTraders.Adapters.Driving.Web.MappingProfiles
 {
     public class CategoryProfile : Profile
     {

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using NorthwindTraders.Web.ViewModels;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels;
 
-namespace NorthwindTraders.Web.Controllers
+namespace NorthwindTraders.Adapters.Driving.Web.Controllers
 {
     public class HomeController : Controller
     {

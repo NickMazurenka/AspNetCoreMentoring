@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Product;
 using NorthwindTraders.Domain.Products;
-using NorthwindTraders.Web.ViewModels.Product;
 
-namespace NorthwindTraders.Web.MappingProfiles
+namespace NorthwindTraders.Adapters.Driving.Web.MappingProfiles
 {
     public class ProductProfile : Profile
     {

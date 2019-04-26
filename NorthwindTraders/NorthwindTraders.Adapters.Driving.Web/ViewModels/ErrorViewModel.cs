@@ -1,4 +1,4 @@
-namespace NorthwindTraders.Web.ViewModels
+namespace NorthwindTraders.Adapters.Driving.Web.ViewModels
 {
     public class ErrorViewModel
     {

@@ -3,7 +3,7 @@ using NorthwindTraders.Domain.Categories;
 using NorthwindTraders.Domain.Products;
 using NorthwindTraders.Domain.Suppliers;
 
-namespace NorthwindTraders.Adapters.EntityFramework
+namespace NorthwindTraders.Adapters.Driven.EntityFramework
 {
     internal class NorthwindContext : DbContext
     {

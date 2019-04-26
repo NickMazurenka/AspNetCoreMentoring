@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NorthwindTraders.Adapters.Driving.Web.Controllers;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Category;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Domain.Categories;
-using NorthwindTraders.Web.Controllers;
-using NorthwindTraders.Web.ViewModels.Category;
 using Xunit;
 
 namespace NorthwindTraders.Web.Tests

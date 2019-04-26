@@ -1,7 +1,7 @@
-﻿using NorthwindTraders.Web.ViewModels.Category;
-using NorthwindTraders.Web.ViewModels.Supplier;
+﻿using NorthwindTraders.Adapters.Driving.Web.ViewModels.Category;
+using NorthwindTraders.Adapters.Driving.Web.ViewModels.Supplier;
 
-namespace NorthwindTraders.Web.ViewModels.Product
+namespace NorthwindTraders.Adapters.Driving.Web.ViewModels.Product
 {
     public class ProductEditModel
     {
