@@ -9,6 +9,7 @@ namespace NorthwindTraders.Adapters.Driving.Web.MappingProfiles
         public ProductProfile()
         {
             CreateMap<Product, ProductViewModel>();
+            CreateMap<Product, ProductEditModel>();
             CreateMap<ProductEditModel, Product>();
             CreateMap<ProductCreateModel, Product>();
         }

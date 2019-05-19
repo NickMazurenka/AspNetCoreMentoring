@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -91,7 +92,7 @@ namespace NorthwindTraders.Adapters.Driving.Web.Controllers
                 return NotFound();
             }
 
-            return View(_mapper.Map<CategoryViewModel>(category));
+            return View(_mapper.Map<CategoryEditModel>(category));
         }
 
         [HttpPost]
@@ -104,6 +105,20 @@ namespace NorthwindTraders.Adapters.Driving.Web.Controllers
             }
 
             var category = _mapper.Map<Category>(categoryEditModel);
+
+            if (categoryEditModel.Picture != null)
+            {
+                byte[] brokenPictureBytes;
+                using (var ms = new MemoryStream())
+                {
+                    await categoryEditModel.Picture.CopyToAsync(ms);
+                    var pictureBytes = ms.ToArray();
+                    brokenPictureBytes = new byte[78 + pictureBytes.Length];
+                    pictureBytes.CopyTo(brokenPictureBytes, 78);
+                }
+
+                category.Picture = brokenPictureBytes;
+            }
 
             if (ModelState.IsValid)
             {
@@ -126,7 +141,8 @@ namespace NorthwindTraders.Adapters.Driving.Web.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(_mapper.Map<CategoryViewModel>(category));
+
+            return View(_mapper.Map<CategoryEditModel>(category));
         }
 
         public async Task<IActionResult> Delete(int? id)

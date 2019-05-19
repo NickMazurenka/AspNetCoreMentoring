@@ -20,44 +20,59 @@ namespace NorthwindTraders.Adapters.Driving.Web.Middleware
         public async Task InvokeAsync(HttpContext context)
         {
             var path = context.Request.Path.Value;
-            var servedImage = false;
-            if (path.StartsWith("/images"))
-            {
-                var t = int.TryParse(path.Split("/").Last(), out var id);
-                if (t)
-                {
-                    var webRoot = _hostingEnvironment.WebRootPath;
-                    var absolutePath = Path.Combine(webRoot, "cached_images", id + ".bmp");
-                    if (File.Exists(absolutePath))
-                    {
-                        var bytes = await File.ReadAllBytesAsync(absolutePath);
-                        await context.Response.Body.WriteAsync(bytes);
-                        servedImage = true;
-                    }
-                }
-            }
 
-            if (!servedImage)
+            if (!path.StartsWith("/images") || !int.TryParse(path.Split("/").Last(), out var imageId))
             {
-                var webRoot = _hostingEnvironment.WebRootPath;
-                var cachedImagesDirectoryAbsolutePath = Path.Combine(webRoot, "cached_images");
-                Directory.CreateDirectory(cachedImagesDirectoryAbsolutePath);
-
                 await _next(context);
 
-                var contentType = context.Response.ContentType;
-                if (contentType != null && contentType == "image/bmp")
-                {
-                    if (int.TryParse(path.Split("/").Last(), out var id))
-                    {
-                        var imagePath = Path.Combine(cachedImagesDirectoryAbsolutePath, id + ".bmp");
+                return;
+            }
 
-                        using (var fileStream = File.Create(imagePath))
-                        {
-                            await context.Response.Body.CopyToAsync(fileStream);
-                        }
+            var webRoot = _hostingEnvironment.WebRootPath;
+            var absolutePath = Path.Combine(webRoot, "cached_images", imageId + ".bmp");
+
+            if (File.Exists(absolutePath))
+            {
+                var bytes = await File.ReadAllBytesAsync(absolutePath);
+                await context.Response.Body.WriteAsync(bytes);
+
+                return;
+            }
+
+            var originalBody = context.Response.Body;
+
+            try
+            {
+                using (var ms = new MemoryStream())
+                {
+                    context.Response.Body = ms;
+
+                    await _next(context);
+
+                    if (context.Response.ContentType == null || context.Response.ContentType != "image/bmp")
+                    {
+                        return;
+                    }
+
+                    ms.Position = 0;
+                    await ms.CopyToAsync(originalBody);
+
+                    ms.Position = 0;
+                    var cachedImagesDirectoryAbsolutePath = Path.Combine(webRoot, "cached_images");
+                    Directory.CreateDirectory(cachedImagesDirectoryAbsolutePath);
+
+                    var imagePath = Path.Combine(cachedImagesDirectoryAbsolutePath, imageId + ".bmp");
+
+                    using (var fileStream = File.Create(imagePath))
+                    {
+                        await ms.CopyToAsync(fileStream);
                     }
                 }
+
+            }
+            finally
+            {
+                context.Response.Body = originalBody;
             }
         }
     }
