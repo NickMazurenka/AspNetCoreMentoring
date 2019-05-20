@@ -1,0 +1,12 @@
+﻿@model IEnumerable<(string, string)>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+
+        @foreach (var breadcrumb in Model)
+        {
+            <li class="breadcrumb-item active" aria-current="page"><a href="@breadcrumb.Item2">@breadcrumb.Item1</a></li>
+        }
+    </ol>
+</nav>
