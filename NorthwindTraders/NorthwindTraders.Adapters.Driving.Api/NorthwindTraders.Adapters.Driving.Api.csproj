@@ -3,22 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
-    <UserSecretsId>ee1a8e3a-a0c3-4591-aac7-65754a708907</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>26b54442-282d-4c38-9fb8-dea9329c9634</UserSecretsId>
   </PropertyGroup>
-
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\NorthwindTraders.Adapters.Driven.EntityFramework\NorthwindTraders.Adapters.Driven.EntityFramework.csproj" />
     <ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
   </ItemGroup>
 
