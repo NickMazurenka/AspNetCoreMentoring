@@ -40,7 +40,7 @@ namespace NorthwindTraders.Adapters.Driving.Web
 
             services.AddApplicationCore();
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc()
                 .AddFluentValidation()

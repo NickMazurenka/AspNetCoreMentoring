@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NorthwindTraders.Adapters.Driving.Api.Models;
+using NorthwindTraders.Adapters.Driving.Api.Models.Category;
 using NorthwindTraders.Application.Categories;
 
 namespace NorthwindTraders.Adapters.Driving.Api.Controllers
@@ -22,13 +22,13 @@ namespace NorthwindTraders.Adapters.Driving.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryGetDto>>> Get()
         {
-            return Ok(_mapper.Map<IEnumerable<CategoryDto>>(await _categoriesService.GetCategoriesAsync()));
+            return Ok(_mapper.Map<IEnumerable<CategoryGetDto>>(await _categoriesService.GetCategoriesAsync()));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryDto>> Get(int id)
+        public async Task<ActionResult<CategoryGetDto>> Get(int id)
         {
             var category = await _categoriesService.GetCategoryAsync(id);
 
@@ -37,7 +37,7 @@ namespace NorthwindTraders.Adapters.Driving.Api.Controllers
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<CategoryDto>(category));
+            return Ok(_mapper.Map<CategoryGetDto>(category));
         }
     }
 }

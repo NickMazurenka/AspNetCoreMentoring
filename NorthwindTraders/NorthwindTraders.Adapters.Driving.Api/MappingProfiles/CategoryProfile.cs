@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NorthwindTraders.Adapters.Driving.Api.Models;
+using NorthwindTraders.Adapters.Driving.Api.Models.Category;
 using NorthwindTraders.Domain.Categories;
 
 namespace NorthwindTraders.Adapters.Driving.Api.MappingProfiles
@@ -8,7 +8,7 @@ namespace NorthwindTraders.Adapters.Driving.Api.MappingProfiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryGetDto>();
         }
     }
 }
