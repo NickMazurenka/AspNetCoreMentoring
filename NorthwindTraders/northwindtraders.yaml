@@ -1,0 +1,250 @@
+---
+swagger: '2.0'
+info:
+  version: v1
+  title: NorthwindTraders API
+paths:
+  "/api/Categories":
+    get:
+      tags:
+      - Categories
+      operationId: Get
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/CategoryGetDto"
+  "/api/Categories/{id}":
+    get:
+      tags:
+      - Categories
+      operationId: Get
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/CategoryGetDto"
+  "/api/Products":
+    get:
+      tags:
+      - Products
+      operationId: Get
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters: []
+      responses:
+        '200':
+          description: Success
+          schema:
+            uniqueItems: false
+            type: array
+            items:
+              "$ref": "#/definitions/ProductGetDto"
+    post:
+      tags:
+      - Products
+      operationId: Post
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: ProductName
+        in: query
+        required: false
+        type: string
+      - name: CategoryId
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: QuantityPerUnit
+        in: query
+        required: false
+        type: string
+      - name: UnitPrice
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: UnitsInStock
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: UnitsOnOrder
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: ReorderLevel
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: Discontinued
+        in: query
+        required: false
+        type: boolean
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ProductGetDto"
+  "/api/Products/{id}":
+    get:
+      tags:
+      - Products
+      operationId: Get
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ProductGetDto"
+    put:
+      tags:
+      - Products
+      operationId: Put
+      consumes: []
+      produces:
+      - text/plain
+      - application/json
+      - text/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+      - name: ProductName
+        in: query
+        required: false
+        type: string
+      - name: CategoryId
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: QuantityPerUnit
+        in: query
+        required: false
+        type: string
+      - name: UnitPrice
+        in: query
+        required: false
+        type: number
+        format: double
+      - name: UnitsInStock
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: UnitsOnOrder
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: ReorderLevel
+        in: query
+        required: false
+        type: integer
+        format: int32
+      - name: Discontinued
+        in: query
+        required: false
+        type: boolean
+      responses:
+        '200':
+          description: Success
+          schema:
+            "$ref": "#/definitions/ProductGetDto"
+    delete:
+      tags:
+      - Products
+      operationId: Delete
+      consumes: []
+      produces: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: integer
+        format: int32
+      responses:
+        '200':
+          description: Success
+definitions:
+  CategoryGetDto:
+    type: object
+    properties:
+      categoryId:
+        format: int32
+        type: integer
+      categoryName:
+        type: string
+      description:
+        type: string
+  ProductGetDto:
+    type: object
+    properties:
+      productId:
+        format: int32
+        type: integer
+      productName:
+        type: string
+      categoryId:
+        format: int32
+        type: integer
+      quantityPerUnit:
+        type: string
+      unitPrice:
+        format: double
+        type: number
+      unitsInStock:
+        format: int32
+        type: integer
+      unitsOnOrder:
+        format: int32
+        type: integer
+      reorderLevel:
+        format: int32
+        type: integer
+      discontinued:
+        type: boolean
+      category:
+        "$ref": "#/definitions/CategoryGetDto"
