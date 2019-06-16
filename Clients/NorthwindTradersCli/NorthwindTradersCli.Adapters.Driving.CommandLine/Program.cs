@@ -7,6 +7,27 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
     {
         static void Main(string[] args)
         {
+            //setup our DI
+            var serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton<IFooService, FooService>()
+                .AddSingleton<IBarService, BarService>()
+                .BuildServiceProvider();
+
+            //configure console logging
+            serviceProvider
+                .GetService<ILoggerFactory>()
+                .AddConsole(LogLevel.Debug);
+
+            var logger = serviceProvider.GetService<ILoggerFactory>()
+                .CreateLogger<Program>();
+            logger.LogDebug("Starting application");
+
+            //do the actual work here
+            var bar = serviceProvider.GetService<IBarService>();
+
+            .AddAutoMapper(typeof(Startup));
+
             PrintLoad(27);
             Console.WriteLine("Welcome to Northwind Traders CLI");
             Console.WriteLine("Type 'help' to print list of commands");
@@ -16,6 +37,8 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
                 var command = Console.ReadLine();
                 switch (command)
                 {
+                    case "categories":
+                        return;
                     case "help":
                         PrintHelp();
                         break;
@@ -30,6 +53,9 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
 
         static void PrintHelp()
         {
+            Console.WriteLine("categories - lists all categories");
+            Console.WriteLine("productes" +
+                              " - lists all categories");
             Console.WriteLine("help - print help");
             Console.WriteLine("quit - exit the program");
         }
