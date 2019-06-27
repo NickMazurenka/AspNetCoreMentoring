@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using NorthwindTraders.Adapters.Driving.Api.Models.Category;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Category;
 using NorthwindTradersCli.Domain.Models;
 
-namespace NorthwindTraders.Adapters.Driving.Api.MappingProfiles
+namespace NorthwindTradersCli.Adapters.Driving.CommandLine.MappingProfiles
 {
     public class CategoryProfile : Profile
     {

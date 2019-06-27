@@ -1,4 +1,4 @@
-﻿namespace NorthwindTraders.Adapters.Driving.Api.Models.Category
+﻿namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Category
 {
     public class CategoryGetDto
     {

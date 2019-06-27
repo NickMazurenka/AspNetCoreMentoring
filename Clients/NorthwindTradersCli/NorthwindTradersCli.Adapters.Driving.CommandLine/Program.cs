@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Threading;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers;
+using NorthwindTradersCli.Application;
 
 namespace NorthwindTradersCli.Adapters.Driving.CommandLine
 {
@@ -7,26 +11,12 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
     {
         static void Main(string[] args)
         {
-            //setup our DI
-            var serviceProvider = new ServiceCollection()
-                .AddLogging()
-                .AddSingleton<IFooService, FooService>()
-                .AddSingleton<IBarService, BarService>()
-                .BuildServiceProvider();
+            var services = new ServiceCollection();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddApplicationCore();
+            services.AddEntityFrameworkAdapter(Configuration.GetConnectionString("NorthwindDatabase"));
+            services.BuildServiceProvider();
 
-            //configure console logging
-            serviceProvider
-                .GetService<ILoggerFactory>()
-                .AddConsole(LogLevel.Debug);
-
-            var logger = serviceProvider.GetService<ILoggerFactory>()
-                .CreateLogger<Program>();
-            logger.LogDebug("Starting application");
-
-            //do the actual work here
-            var bar = serviceProvider.GetService<IBarService>();
-
-            .AddAutoMapper(typeof(Startup));
 
             PrintLoad(27);
             Console.WriteLine("Welcome to Northwind Traders CLI");
@@ -38,7 +28,7 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
                 switch (command)
                 {
                     case "categories":
-                        return;
+                        break;
                     case "help":
                         PrintHelp();
                         break;
@@ -54,8 +44,7 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
         static void PrintHelp()
         {
             Console.WriteLine("categories - lists all categories");
-            Console.WriteLine("productes" +
-                              " - lists all categories");
+            Console.WriteLine("products - lists all products");
             Console.WriteLine("help - print help");
             Console.WriteLine("quit - exit the program");
         }

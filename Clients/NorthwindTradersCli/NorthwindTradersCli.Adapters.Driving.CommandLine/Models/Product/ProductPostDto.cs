@@ -1,4 +1,4 @@
-﻿namespace NorthwindTraders.Adapters.Driving.Api.Models.Product
+﻿namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Product
 {
     public class ProductPostDto
     {

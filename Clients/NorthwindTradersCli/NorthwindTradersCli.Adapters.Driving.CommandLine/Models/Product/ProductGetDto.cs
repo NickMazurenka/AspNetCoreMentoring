@@ -1,6 +1,6 @@
-﻿using NorthwindTraders.Adapters.Driving.Api.Models.Category;
+﻿using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Category;
 
-namespace NorthwindTraders.Adapters.Driving.Api.Models.Product
+namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Product
 {
     public class ProductGetDto
     {

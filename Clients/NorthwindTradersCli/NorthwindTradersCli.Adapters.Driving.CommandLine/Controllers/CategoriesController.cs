@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using NorthwindTraders.Adapters.Driving.Api.Models.Category;
-using NorthwindTradersCli.Application.Categories;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Category;
+using NorthwindTradersCli.Application.Categories;
 
-namespace NorthwindTraders.Adapters.Driving.Api.Controllers
+namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers
 {
     public class CategoriesController
     {

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using NorthwindTraders.Adapters.Driving.Api.Models.Product;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Product;
 using NorthwindTradersCli.Application.Products;
 using NorthwindTradersCli.Domain.Models;
 
-namespace NorthwindTraders.Adapters.Driving.Api.Controllers
+namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers
 {
     public class ProductsController
     {
