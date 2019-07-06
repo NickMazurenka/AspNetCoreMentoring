@@ -1,34 +1,75 @@
 ﻿using System;
-using System.Threading;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NorthwindTradersCli.Adapters.Driven.ApiClient;
 using NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Services;
 using NorthwindTradersCli.Application;
 
 namespace NorthwindTradersCli.Adapters.Driving.CommandLine
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .Build();
+
             var services = new ServiceCollection();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddApplicationCore();
-            services.AddEntityFrameworkAdapter(Configuration.GetConnectionString("NorthwindDatabase"));
-            services.BuildServiceProvider();
+            services.AddApiClientAdapter(configuration.GetConnectionString("NorthwindTradersApi"));
+            services.AddTransient<IProductPrinter, ProductPrinter>();
+            services.AddTransient<ICategoryPrinter, CategoryPrinter>();
+            services.AddTransient<ICategoriesController, CategoriesController>();
+            services.AddTransient<IProductsController, ProductsController>();
+
+            var container = services.BuildServiceProvider();
 
 
-            PrintLoad(27);
             Console.WriteLine("Welcome to Northwind Traders CLI");
             Console.WriteLine("Type 'help' to print list of commands");
 
             while (true)
             {
-                var command = Console.ReadLine();
+                var request = Console.ReadLine() ?? "";
+                var command = request.Split().First();
                 switch (command)
                 {
-                    case "categories":
+                    case "products":
+                        await container.GetRequiredService<IProductsController>().Get();
                         break;
+                    case "product":
+                    {
+                        if (!int.TryParse(request.Split().Last(), out var id))
+                        {
+                            Console.WriteLine("Invalid command");
+                            break;
+                        }
+
+                        await container.GetRequiredService<IProductsController>().Get(id);
+                        break;
+                    }
+                    case "categories":
+                        await container.GetRequiredService<ICategoriesController>().Get();
+                        break;
+                    case "category":
+                    {
+                        if (!int.TryParse(request.Split().Last(), out var id))
+                        {
+                            Console.WriteLine("Invalid command");
+                            break;
+                        }
+
+                        await container.GetRequiredService<ICategoriesController>().Get(id);
+                        break;
+                    }
                     case "help":
                         PrintHelp();
                         break;
@@ -44,27 +85,11 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine
         static void PrintHelp()
         {
             Console.WriteLine("categories - lists all categories");
+            Console.WriteLine("category {id} - output category with specified id");
             Console.WriteLine("products - lists all products");
+            Console.WriteLine("product {id} - output product with specified id");
             Console.WriteLine("help - print help");
             Console.WriteLine("quit - exit the program");
-        }
-
-        static void PrintLoad(int loadLineLength)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("(");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write(new string('.', loadLineLength));
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(")");
-
-            Console.Write(new string('\b', loadLineLength + 1));
-            for (int i = 0; i < loadLineLength; i++)
-            {
-                Console.Write("#");
-                Thread.Sleep(72);
-            }
-            Console.Write(new string('\b', loadLineLength + 3));
         }
     }
 }

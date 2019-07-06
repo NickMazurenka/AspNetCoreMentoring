@@ -18,24 +18,9 @@ namespace NorthwindTradersCli.Application.Categories
             return await _categoriesRepository.GetCategoriesAsync();
         }
 
-        public async Task<Category> CreateCategoryAsync(Category category)
-        {
-            return await _categoriesRepository.CreateCategoryAsync(category);
-        }
-
         public async Task<Category> GetCategoryAsync(int categoryId)
         {
             return await _categoriesRepository.GetCategoryAsync(categoryId);
-        }
-
-        public async Task<Category> UpdateCategoryAsync(Category category)
-        {
-            return await _categoriesRepository.UpdateCategoryAsync(category);
-        }
-
-        public async Task<int> DeleteCategoryAsync(int categoryId)
-        {
-            return await _categoriesRepository.DeleteCategoryAsync(categoryId);
         }
     }
 }

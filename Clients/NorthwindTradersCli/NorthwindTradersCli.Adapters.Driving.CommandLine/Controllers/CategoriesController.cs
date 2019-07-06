@@ -1,39 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Category;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Services;
 using NorthwindTradersCli.Application.Categories;
 
 namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers
 {
-    public class CategoriesController
+    public class CategoriesController : ICategoriesController
     {
-        private readonly IMapper _mapper;
         private readonly ICategoriesService _categoriesService;
+        private readonly ICategoryPrinter _categoryPrinter;
 
         public CategoriesController(
-            IMapper mapper,
-            ICategoriesService categoriesService)
+            ICategoriesService categoriesService,
+            ICategoryPrinter categoryPrinter)
         {
-            _mapper = mapper;
             _categoriesService = categoriesService;
+            _categoryPrinter = categoryPrinter;
         }
 
-        public async Task<IEnumerable<CategoryGetDto>> Get()
+        public async Task Get()
         {
-            return _mapper.Map<IEnumerable<CategoryGetDto>>(await _categoriesService.GetCategoriesAsync());
+            var categories = (await _categoriesService.GetCategoriesAsync())?.ToList();
+
+            if (categories == null || !categories.Any())
+            {
+                Console.WriteLine("Categories not found");
+                return;
+            }
+
+            foreach (var category in categories)
+            {
+                _categoryPrinter.PrintCategory(category);
+            }
         }
 
-        public async Task<CategoryGetDto> Get(int id)
+        public async Task Get(int id)
         {
             var category = await _categoriesService.GetCategoryAsync(id);
 
             if (category == null)
             {
-                return null;
+                Console.WriteLine($"Category with id {id} not found");
+                return;
             }
 
-            return _mapper.Map<CategoryGetDto>(category);
+            _categoryPrinter.PrintCategory(category);
         }
     }
 }

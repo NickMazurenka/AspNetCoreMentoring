@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NorthwindTradersCli.Application.Categories;
 using NorthwindTradersCli.Application.Products;
-using NorthwindTradersCli.Application.Suppliers;
 
 namespace NorthwindTradersCli.Application
 {
@@ -11,7 +10,6 @@ namespace NorthwindTradersCli.Application
         {
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IProductsService, ProductsService>();
-            services.AddTransient<ISuppliersService, SuppliersService>();
 
             return services;
         }

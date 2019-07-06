@@ -1,56 +1,56 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using NorthwindTraders.Application.Products;
-using NorthwindTraders.Domain.Products;
+using AutoMapper;
+using NorthwindTradersCli.Adapters.Driven.ApiClient.Models.Product;
+using NorthwindTradersCli.Application.Products;
+using NorthwindTradersCli.Domain.Models;
 
-namespace NorthwindTraders.Adapters.Driven.EntityFramework.Repositories
+namespace NorthwindTradersCli.Adapters.Driven.ApiClient.Repositories
 {
     internal class ProductsRepository : IProductsRepository
     {
-        private readonly NorthwindContext _context;
+        private readonly IMapper _mapper;
+        private readonly HttpClient _client;
 
-        public ProductsRepository(NorthwindContext context)
+        public ProductsRepository(
+            IHttpClientFactory httpClientFactory,
+            IMapper mapper)
         {
-            _context = context;
+            _mapper = mapper;
+            _client = httpClientFactory.CreateClient("northwind");
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            return await _context.Products.Include(p => p.Category).Include(p => p.Supplier).ToListAsync();
+            IEnumerable<ProductGetDto> products = null;
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "Products");
+
+            var response = await _client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                products = await response.Content.ReadAsAsync<IEnumerable<ProductGetDto>>();
+            }
+
+            return _mapper.Map<IEnumerable<Product>>(products);
         }
 
         public async Task<Product> GetProduct(int productId)
         {
-            return await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.Supplier)
-                .FirstOrDefaultAsync(m => m.ProductId == productId);
-        }
+            ProductGetDto product = null;
 
-        public async Task<int> DeleteProduct(int productId)
-        {
-            var product = await _context.Products.FindAsync(productId);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"Products/{productId}");
 
-            return productId;
-        }
+            var response = await _client.SendAsync(request);
 
-        public async Task<Product> UpdateProduct(Product product)
-        {
-            _context.Update(product);
-            await _context.SaveChangesAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                product = await response.Content.ReadAsAsync<ProductGetDto>();
+            }
 
-            return product;
-        }
-
-        public async Task<Product> CreateProduct(Product product)
-        {
-            _context.Add(product);
-            await _context.SaveChangesAsync();
-
-            return product;
+            return _mapper.Map<Product>(product);
         }
     }
 }

@@ -1,77 +1,51 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using NorthwindTradersCli.Adapters.Driving.CommandLine.Models.Product;
+using NorthwindTradersCli.Adapters.Driving.CommandLine.Services;
 using NorthwindTradersCli.Application.Products;
-using NorthwindTradersCli.Domain.Models;
 
 namespace NorthwindTradersCli.Adapters.Driving.CommandLine.Controllers
 {
-    public class ProductsController
+    public class ProductsController : IProductsController
     {
-        private readonly IMapper _mapper;
         private readonly IProductsService _productsService;
+        private readonly IProductPrinter _productPrinter;
 
         public ProductsController(
-            IMapper mapper,
-            IProductsService productsService)
+            IProductsService productsService,
+            IProductPrinter productPrinter)
         {
-            _mapper = mapper;
             _productsService = productsService;
+            _productPrinter = productPrinter;
         }
 
-        public async Task<IEnumerable<ProductGetDto>> Get()
+        public async Task Get()
         {
-            return _mapper.Map<IEnumerable<ProductGetDto>>(await _productsService.GetProductsAsync());
+            var products = (await _productsService.GetProductsAsync())?.ToList();
+
+            if (products == null || !products.Any())
+            {
+                Console.WriteLine("Products not found");
+                return;
+            }
+
+            foreach (var product in products)
+            {
+                _productPrinter.PrintProduct(product);
+            }
         }
 
-        public async Task<ProductGetDto> Get(int id)
+        public async Task Get(int id)
         {
             var product = await _productsService.GetProductAsync(id);
 
             if (product == null)
             {
-                return null;
-            }
-
-            return _mapper.Map<ProductGetDto>(product);
-        }
-
-        public async Task<ProductGetDto> Post(ProductPostDto productDto)
-        {
-            var product = _mapper.Map<Product>(productDto);
-
-            var createdProduct = await _productsService.CreateProductAsync(product);
-
-            return _mapper.Map<ProductGetDto>(createdProduct);
-
-        }
-
-        public async Task<ProductGetDto> Put(int id, ProductPutDto productDto)
-        {
-            if (await _productsService.GetProductAsync(id) == null)
-            {
-                return null;
-            }
-
-            var product = _mapper.Map<Product>(productDto);
-            product.ProductId = id;
-
-            var updatedProduct = await _productsService.UpdateProductAsync(product);
-
-            return _mapper.Map<ProductGetDto>(updatedProduct);
-        }
-
-        public async Task Delete(int id)
-        {
-            if (await _productsService.GetProductAsync(id) == null)
-            {
+                Console.WriteLine($"Product with id {id} not found");
                 return;
             }
 
-            await _productsService.DeleteProductAsync(id);
-
-            return;
+            _productPrinter.PrintProduct(product);
         }
     }
 }

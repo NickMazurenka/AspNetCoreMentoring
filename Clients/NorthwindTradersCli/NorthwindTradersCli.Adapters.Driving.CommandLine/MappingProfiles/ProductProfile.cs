@@ -9,7 +9,6 @@ namespace NorthwindTradersCli.Adapters.Driving.CommandLine.MappingProfiles
         public ProductProfile()
         {
             CreateMap<Product, ProductGetDto>();
-            CreateMap<ProductPostDto, Product>();
         }
     }
 }
