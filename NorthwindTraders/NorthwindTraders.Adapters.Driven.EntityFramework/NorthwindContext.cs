@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NorthwindTraders.Domain.Categories;
 using NorthwindTraders.Domain.Products;
 using NorthwindTraders.Domain.Suppliers;
 
 namespace NorthwindTraders.Adapters.Driven.EntityFramework
 {
-    internal class NorthwindContext : DbContext
+    public class NorthwindContext : IdentityDbContext<IdentityUser>
     {
         public NorthwindContext()
         {
@@ -22,6 +24,8 @@ namespace NorthwindTraders.Adapters.Driven.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
 
             modelBuilder.Entity<Category>(entity =>
