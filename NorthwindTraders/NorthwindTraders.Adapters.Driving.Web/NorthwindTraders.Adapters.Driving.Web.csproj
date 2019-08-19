@@ -13,10 +13,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <ProjectReference Include="..\NorthwindTraders.Adapters.Driven.EmailSender\NorthwindTraders.Adapters.Driven.EmailSender.csproj" />
     <ProjectReference Include="..\NorthwindTraders.Adapters.Driven.EntityFramework\NorthwindTraders.Adapters.Driven.EntityFramework.csproj" />
     <ProjectReference Include="..\NorthwindTraders.Application\NorthwindTraders.Application.csproj" />
   </ItemGroup>
