@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NorthwindTraders.Adapters.Driven.EmailSender;
 using NorthwindTraders.Adapters.Driven.EntityFramework;
 using NorthwindTraders.Adapters.Driving.Web.Middleware;
 using NorthwindTraders.Application;
@@ -40,6 +42,10 @@ namespace NorthwindTraders.Adapters.Driving.Web
             services.AddTransient<IValidator<Product>, ProductsValidator>();
 
             services.AddEntityFrameworkAdapter(Configuration.GetConnectionString("NorthwindDatabase"));
+
+            services.AddEmailSenderAdapter(
+                Configuration["AuthMessageSenderOptions:SendGridUser"],
+                Configuration["AuthMessageSenderOptions:SendGridKey"]);
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
