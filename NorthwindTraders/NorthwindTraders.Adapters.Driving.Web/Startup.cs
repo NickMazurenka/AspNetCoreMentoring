@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NorthwindTraders.Adapters.Driven.EmailSender;
 using NorthwindTraders.Adapters.Driven.EntityFramework;
+using NorthwindTraders.Adapters.Driving.Web.Adapters;
 using NorthwindTraders.Adapters.Driving.Web.Middleware;
 using NorthwindTraders.Application;
 using NorthwindTraders.Application.Products;
@@ -50,6 +51,8 @@ namespace NorthwindTraders.Adapters.Driving.Web
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<NorthwindContext>();
+
+            services.AddTransient<IEmailSender, EmailSenderAdapter>();
 
             services.Configure<IdentityOptions>(options =>
             {
