@@ -2,6 +2,11 @@
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,11 +14,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NorthwindTraders.Adapters.Driven.EmailSender;
 using NorthwindTraders.Adapters.Driven.EntityFramework;
 using NorthwindTraders.Adapters.Driving.Web.Adapters;
+using NorthwindTraders.Adapters.Driving.Web.Extensions;
 using NorthwindTraders.Adapters.Driving.Web.Middleware;
 using NorthwindTraders.Application;
 using NorthwindTraders.Application.Products;
@@ -75,6 +82,16 @@ namespace NorthwindTraders.Adapters.Driving.Web
                 options.User.RequireUniqueEmail = false;
             });
 
+            services.AddAuthentication(sharedOptions =>
+                {
+                    sharedOptions.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                    sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                    sharedOptions.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+                })
+                .AddAzureAd(options => Configuration.Bind("AzureAd", options))
+                .AddCookie();
+
             services.AddApplicationCore();
 
             services.AddAutoMapper(typeof(Startup));
@@ -94,7 +111,6 @@ namespace NorthwindTraders.Adapters.Driving.Web
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 

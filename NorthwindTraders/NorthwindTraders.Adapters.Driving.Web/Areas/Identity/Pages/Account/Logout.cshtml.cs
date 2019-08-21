@@ -36,7 +36,7 @@ namespace NorthwindTraders.Adapters.Driving.Web.Areas.Identity.Pages.Account
             }
             else
             {
-                return Page();
+                return RedirectToPage();
             }
         }
     }
