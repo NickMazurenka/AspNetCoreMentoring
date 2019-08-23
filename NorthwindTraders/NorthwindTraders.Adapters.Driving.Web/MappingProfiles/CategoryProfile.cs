@@ -1,5 +1,4 @@
-﻿using System.IO;
-using AutoMapper;
+﻿using AutoMapper;
 using NorthwindTraders.Adapters.Driving.Web.ViewModels.Category;
 using NorthwindTraders.Domain.Categories;
 

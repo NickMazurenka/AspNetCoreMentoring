@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NorthwindTraders.Application.Administration;
 using NorthwindTraders.Application.Categories;
 using NorthwindTraders.Application.Products;
 using NorthwindTraders.Application.Suppliers;
@@ -14,6 +15,7 @@ namespace NorthwindTraders.Application
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<ISuppliersService, SuppliersService>();
             services.AddTransient<ISendEmailService, SendEmailService>();
+            services.AddTransient<IUserInfoService, UserInfoService>();
 
             return services;
         }

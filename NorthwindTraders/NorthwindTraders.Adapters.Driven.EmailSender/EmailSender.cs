@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using NorthwindTraders.Application.UserNotification;
 using SendGrid;
 using SendGrid.Helpers.Mail;

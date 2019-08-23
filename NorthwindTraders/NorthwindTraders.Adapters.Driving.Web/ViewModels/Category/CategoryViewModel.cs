@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-
-namespace NorthwindTraders.Adapters.Driving.Web.ViewModels.Category
+﻿namespace NorthwindTraders.Adapters.Driving.Web.ViewModels.Category
 {
     public class CategoryViewModel
     {

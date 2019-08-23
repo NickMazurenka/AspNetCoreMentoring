@@ -2,11 +2,8 @@
 using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NorthwindTraders.Adapters.Driven.EmailSender;
@@ -55,7 +51,7 @@ namespace NorthwindTraders.Adapters.Driving.Web
                 Configuration["AuthMessageSenderOptions:SendGridUser"],
                 Configuration["AuthMessageSenderOptions:SendGridKey"]);
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<NorthwindContext>();
 
@@ -82,15 +78,8 @@ namespace NorthwindTraders.Adapters.Driving.Web
                 options.User.RequireUniqueEmail = false;
             });
 
-            services.AddAuthentication(sharedOptions =>
-                {
-                    sharedOptions.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-                    sharedOptions.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    sharedOptions.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                    sharedOptions.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-                })
-                .AddAzureAd(options => Configuration.Bind("AzureAd", options))
-                .AddCookie();
+            services.AddAuthentication()
+                .AddAzureAd(options => Configuration.Bind("AzureAd", options));
 
             services.AddApplicationCore();
 
@@ -98,7 +87,13 @@ namespace NorthwindTraders.Adapters.Driving.Web
 
             services.AddMvc()
                 .AddFluentValidation()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

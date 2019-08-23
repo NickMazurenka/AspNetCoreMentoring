@@ -26,6 +26,12 @@ namespace NorthwindTraders.Adapters.Driven.EntityFramework
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Name = "Administrator",
+                NormalizedName = "Administrator".ToUpper()
+            });
+
             modelBuilder.HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
 
             modelBuilder.Entity<Category>(entity =>
